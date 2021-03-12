@@ -12,8 +12,8 @@ function Nav() {
       <a className="navbar-brand" href="/luis ">
         Luis 
       </a>
-      <a className="navbar-brand" href="/rake ">
-        Raquel
+      <a className="navbar-brand" href="/Activities ">
+        React Reading TodoList
       </a>
 
       
