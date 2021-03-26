@@ -25,9 +25,9 @@ var clientList = [
 
 console.log(clientList.length);
 console.log(clientList[0].ID);
-for
+/* for
 var verifyID;
-
+ */
 $("#scanQR").click(function() {
   //$("#checkInCard").css("width","14rem");
   let html5QrcodeScanner = new Html5QrcodeScanner(
@@ -62,12 +62,16 @@ $("#manualInput").click(function() {
   $("#clientSearchBox").css("display", "none");
   $("#manualInputBox").css("display", "block");
   $("#scanQRBox").css("display","none");});
+  html5QrcodeScanner.clear();
+
 
 $("#clientSearch").click(function() {
   console.log( "i was clicked" );
   $("#clientSearchBox").css("display", "block");
   $("#manualInputBox").css("display", "none");
   $("#scanQRBox").css("display","none");
+  html5QrcodeScanner.clear();
+
 });
 
 $("#searchMemberID").click(function() {
