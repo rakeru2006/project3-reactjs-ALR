@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="node_modules/html5-qrcode/minified/html5-qrcode.min.js"></script>
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">        
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar w/ text</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+                </li>
+            </ul>
+            <span class="navbar-text">
+                Navbar text with an inline element
+            </span>
+            </div>
+        </div>
+    </nav>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm card">
+                <div class= "row">
+                    <div id="checkInCard" class="card" style="width: 20rem;">
+                        <div class="card-body">
+                          <h5 class="card-title">Client Check In</h5>
+                          <h6 class="card-subtitle mb-2 text-muted">Choose an Option Below</h6>
+                          <p class="card-text"></p>
+                          
+                          <p><a id=scanQR href="#" class="card-link">Scan Client Membership QR</a></p>
+                          <p><a id=manualInput href="#" class="card-link">Manually Input Member ID</a></p>
+                          <p><a id=clientSearch href="#" class="card-link">Search Client Membership</a></p>
+                        </div>
+                    </div>
+                    <div id="scanQRBox" class="card" style= "display: none;width: 20rem;">
+                        <div class="card-body">
+                          <div id="reader" width="600px"></div>
+
+                        </div>
+                    </div>
+                    <div id="manualInputBox" class="card" style= "display: none;width: 20rem;">
+                        <div class="card-body">
+                          <h5 class="card-title">Enter Client Member ID</h5>
+                          <h6 class="card-subtitle mb-2 text-muted">Verify the customer name and DOB after inputting membership ID</h6>
+
+                          <div class="input-group input-group-sm mb-3">
+                            <input id="searchValue" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                            <button class="btn btn-outline-secondary" type="button" id="searchMemberID">Search</button>                            
+                            <div id="memberIDSearchResult" style="display: none;">
+                                <p>this element will only load after searching a membership ID (will load and name and DOB)</p>
+                                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Confirm Identity</button>                          </div>
+                            </div>
+                          <p class="card-text"></p>
+                        </div>
+                    </div>
+                    <div id="clientSearchBox" class="card" style= "display: none;width: 20rem;">
+                        <div class="card-body">
+                            <div style= "display: block;">
+                                <h5 class="card-title">Search for Client </h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Input fields below:</h6>
+                                <p class="card-text"></p>
+                                <div class="input-group input-group-sm mb-3">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">First Name</span>
+                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                </div>
+                                <div class="input-group input-group-sm mb-3">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">Last Name</span>
+                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                </div>
+                                <div class="input-group input-group-sm mb-3">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">DoB</span>
+                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                </div>
+                                <button class="input-group-sm btn btn-outline-secondary " type="button" id="button-addon2">Search</button>                            
+                            </div>
+                            <div style="display: show;">
+                                <p>this section will be hidden until there is a search it will load results.</p>
+                                <p>Confirm Address: </p>
+                                <p>If no match, go into customer database to find customer.</p>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+                <div class= "row">
+                    <div id="subsValid" style="display: none;" class="card" style="display: block; width: 20rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">Subcription Validation</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Confirm Customer Subscription</h6>
+                            <div id="come-in" style="display: none;">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <div class="card-text h1 text-right">&#x2705</div>
+                                    </div>
+                                    <div class="col">
+                                        <p class="card-text text-success">Subscription current. Welcome our guest!</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <div class="card-text h1 text-right">&#x274C</div>
+                                    </div>
+                                    <div class="col">
+                                        <p class="card-text text-danger">Subscription inactive. Check customer profile for pending issue!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="hold-on" class="text-danger" style="display: none;">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="loadClientInfo" class="card" style="display:none; width: 20rem;">
+                        <div class="card-body">
+                          <h5 class="card-title">Client Information</h5>
+                          <p class="card-text">Customer Name:</p>
+                          <p id="client-info-name" class="card-text"></p>
+                          <p class="card-text">Customer Address:</p>
+                          <p id="client-info-address" class="card-text"></p>
+                          <p class="card-text">Customer Phone:</p>
+                          <p id="client-info-phone" class="card-text"></p>
+                        </div>
+                      </div>
+                </div>
+                <br>
+                <div class= "row">
+                    <div class="card" style="width: 40rem;">
+                        <div class="card-body">
+                          <h5 class="card-title">Show Customers in Order by Time</h5>
+                          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                          <a href="#" class="card-link">Card link</a>
+                          <a href="#" class="card-link">Another link</a>
+                        </div>
+                      </div>
+                </div>
+            </div>
+            <div class="col-sm container card-header">
+                <div class= "row">
+                    <div class="card mb-1 bg-dark text-white ">
+                        <div class="text-center card-body">
+                            <h2>Capacity Overview</h2>             
+                        </div>    
+                    </div>        
+                </div>
+                <div class="row justify-content-center">                  
+                    <div class="card text-success mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="https://cdn1.iconfinder.com/data/icons/buildings-95/130/9-512.png" style= "min-height: 165px; max-width: 150px" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title ">General Entrance</h5>
+                                    <p class="card-text">Current Capacity: 50</p>
+                                    <p class="card-text">Current Occupancy: 10</p>
+                                    <p class="card-text">
+                                        <small class="text-muted">Last updated 3 mins ago</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card text-success mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="https://cdn10.bostonmagazine.com/wp-content/uploads/sites/2/2018/07/bspoke.jpg" style= "min-height: 165px; max-width: 165px" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title ">Cycling Room</h5>
+                                    <p class="card-text">Current Capacity: 5</p>
+                                    <p class="card-text">Current Occupancy: 5</p>
+                                    <p class="card-text">
+                                        <small class="text-muted">Last updated 3 mins ago</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card text-success mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="https://www.deerfieldparks.org/wp-content/uploads/2017/11/IMG_6090-640x320.jpg" style= "min-height: 165px; max-width: 165px" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title ">Swimming Pool</h5>
+                                    <p class="card-text">Current Capacity: 5</p>
+                                    <p class="card-text">Current Occupancy: 5</p>
+                                    <p class="card-text">
+                                        <small class="text-muted">Last updated 3 mins ago</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card text-success mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="https://thumbs.dreamstime.com/b/vector-barbell-gym-weights-symbol-illustration-8505575.jpg" style= "min-height: 165px; max-width: 165px" alt="stationary bicycles">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title ">Weights Room</h5>
+                                    <p class="card-text">Current Capacity: 5</p>
+                                    <p class="card-text">Current Occupancy: 5</p>
+                                    <p class="card-text">
+                                        <small class="text-muted">Last updated 3 mins ago</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card text-success mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="data:image/jpeg;base64,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" style= "min-height: 165px; max-width: 165px" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title ">Aerobics Room</h5>
+                                    <p class="card-text">Current Capacity: 5</p>
+                                    <p class="card-text">Current Occupancy: 5</p>
+                                    <p class="card-text">
+                                        <small class="text-muted">Last updated 3 mins ago</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="card text-success mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHLU_ThaMySC_IlqXmSicdOwhWo23KDZSweQ&usqp=CAU" style= "min-height: 165px; max-width: 165px" alt="stationary bicycles">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title ">Rest Area</h5>
+                                    <p class="card-text">Current Capacity: 5</p>
+                                    <p class="card-text">Current Occupancy: 5</p>
+                                    <p class="card-text">
+                                        <small class="text-muted">Last updated 3 mins ago</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>                
+            </div>
+        </div>
+    </div>   
+    <nav class="navbar sticky-bottom navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Fixed bottom</a>
+        </div>
+    </nav>
+
+    <script src="GymDashboard.js"></script>
+
+</body>
+</html>
