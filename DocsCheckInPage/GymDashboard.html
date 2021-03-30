@@ -41,7 +41,7 @@
         <div class="row">
             <div class="col-sm card">
                 <div class= "row">
-                    <div id="checkInCard" class="card" style="width: 20rem;">
+                    <div id="checkInCard" class="card col-6">
                         <div class="card-body">
                           <h5 class="card-title">Client Check In</h5>
                           <h6 class="card-subtitle mb-2 text-muted">Choose an Option Below</h6>
@@ -52,9 +52,10 @@
                           <p><a id=clientSearch href="#" class="card-link">Search Client Membership</a></p>
                         </div>
                     </div>
-                    <div id="scanQRBox" class="card" style= "display: none;width: 20rem;">
+                    <div id="scanQRBox" class="card col-6" style= "display: none;width: 20rem;">
                         <div class="card-body">
                           <div id="reader" width="600px"></div>
+                          <div id="scanMatchConfirm"></div>
 
                         </div>
                     </div>
@@ -69,11 +70,13 @@
                           </div>                          
                             <div id="memberIDSearchResult" style="display: none;">
                                 <p id="IDmatchManualConfirm">this element will only load after searching a membership ID . if erorr, wil match that error.</p>
-                                <p id="ManualNameConfirm" style="display: none;">(will load and name and DOB to confirm)</p>
-                                <p id="ManualDoBConfirm" style="display: none;">(will load and name and DOB to confirm)</p>
-                                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Confirm Identity</button>                          </div>
+                                <p id="ManualNameConfirm" style="display: none;">(will load and name to confirm)</p>
+                                <p id="ManualDoBConfirm" style="display: none;">(will load and DOB to confirm)</p>
+                                <button class="btn btn-outline-secondary mb-3" type="button" id="manualFinalConfirm">Confirm Identity</button>    
+                                <p id="seeBelow" style="display: none;"></p>                      
                             </div>
-                          <p class="card-text"></p>
+                        </div>
+                        <p class="card-text"></p>
                     </div>
                     <div id="clientSearchBox" class="card" style= "display: none;width: 20rem;">
                         <div class="card-body">
@@ -104,12 +107,12 @@
                     </div>    
                 </div>
                 <div class= "row">
-                    <div id="subsValid" style="display: none;" class="card" style="display: block; width: 20rem;">
+                    <div id="subsValid" style="display: none;" class="card col-6" style="display: block; width: 20rem;">
                         <div class="card-body">
                             <h5 class="card-title">Subcription Validation</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Confirm Customer Subscription</h6>
                             <div id="come-in" style="display: none;">
-                                <div class="row">
+                                <div id="currentSub" class="row">
                                     <div class="col-3">
                                         <div class="card-text h1 text-right">&#x2705</div>
                                     </div>
@@ -117,7 +120,9 @@
                                         <p class="card-text text-success">Subscription current. Welcome our guest!</p>
                                     </div>
                                 </div>
-                                <div class="row">
+                            </div>
+                            <div id="hold-on" class="text-danger" style="display: none;">
+                                <div id="expSub" class="row">
                                     <div class="col-3">
                                         <div class="card-text h1 text-right">&#x274C</div>
                                     </div>
@@ -126,8 +131,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="hold-on" class="text-danger" style="display: none;">
-                            </div>
 
                         </div>
                     </div>
@@ -135,26 +138,40 @@
                         <div class="card-body">
                           <h5 class="card-title">Client Information</h5>
                           <p class="card-text">Customer Name:</p>
-                          <p id="client-info-name" class="card-text"></p>
+                          <p id="client-info-name" class="card-text fw-bold fst-italic"></p>
                           <p class="card-text">Customer Address:</p>
-                          <p id="client-info-address" class="card-text"></p>
+                          <p id="client-info-address" class="card-text fw-bold fst-italic"></p>
                           <p class="card-text">Customer Phone:</p>
-                          <p id="client-info-phone" class="card-text"></p>
+                          <p id="client-info-phone" class="card-text fw-bold fst-italic"></p>
                         </div>
                       </div>
                 </div>
                 <br>
                 <div class= "row">
-                    <div class="card" style="width: 40rem;">
-                        <div class="card-body">
-                          <h5 class="card-title">Show Customers in Order by Time</h5>
-                          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          <a href="#" class="card-link">Card link</a>
-                          <a href="#" class="card-link">Another link</a>
+                    <div class="col card" style="width: 40rem;">
+                        <div class=card-body>
+                            <h5 class="card-title">Checked-In Clients</h5>
+                            <div id="noGuests" style="display: none" class="h3 text-center"></div>
+                            <table class="table" id="someGuests" style="display: none;">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Check-In Time</th>
+                                    <th scope="col">Length</th>
+                                    <th scope="col">Remove</th>
+                                </tr>
+                                </thead>
+                                <tbody id=newRowCurrentClients></tbody>
+                            </table>
                         </div>
-                      </div>
+                    </div>
                 </div>
+
+
+
+
+
+                
             </div>
             <div class="col-sm container card-header">
                 <div class= "row">

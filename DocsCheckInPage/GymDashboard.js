@@ -9,17 +9,30 @@ var clientList = [
     City: "Dallas",
     State: "TX",
     "ZIP Code": 75215,
-    Phone: 2145380930
+    Phone: 2145380930,
+    Subscription: true
   }, {
     ID: 5620231112,
     Name: "Arturo Rodriguez",
     DoB: "12/15/1988",
-    Street: "Marsalis",
-    "Street Number": 1910,
-    City: "Dallas",
-    State: "TX",
-    "ZIP Code": 75215,
-    Phone: 5620231112
+    Street: "Maestro Antonio Caso",
+    "Street Number": 169,
+    City: "Cuauhtemoc",
+    State: "DF",
+    "ZIP Code": 06500,
+    Phone: 5620231112,
+    Subscription: false
+  }, {
+    ID: 8333463863,
+    Name: "Victor Lepe",
+    DoB: "5/3/1999",
+    Street: "Maestro Antonio Caso",
+    "Street Number": 169,
+    City: "Cuauhtemoc",
+    State: "DF",
+    "ZIP Code": 06500,
+    Phone: 8333463863,
+    Subscription: true
   }
 ]
 
@@ -32,10 +45,20 @@ for (var i=0; i< clientList.length; i++) {
 }
 console.log(membersIDs)
 
-/* for
 var verifyID;
- */
+var checkedIn= [];
+var checkTimes= [];
+
+if(checkedIn = []) {
+  $("#noGuests").css("display", "block");
+  $("#noGuests").text("We currently have no guests at this time.")
+} else {
+  currentClientsIn()
+}
+
 $("#scanQR").click(function() {
+  $("#scanMatchConfirm").removeClass("text-danger")
+  $("#scanMatchConfirm").removeClass("text-success")
   //$("#checkInCard").css("width","14rem");
   let html5QrcodeScanner = new Html5QrcodeScanner(
     "reader", { fps: 10, qrbox: 250 }, /* verbose= */ true);
@@ -46,7 +69,15 @@ $("#scanQR").click(function() {
     $("#clientSearchBox").css("display", "none");
     $("#manualInputBox").css("display", "none");
     $("#scanQRBox").css("display","block");    
-    return verifyID = scannedMembership;
+    verifyID = scannedMembership;
+    if (membersIDs.indexOf(Number(verifyID)) < 0){
+      $("#scanMatchConfirm").addClass("text-danger")
+      $("#scanMatchConfirm").text("No matching ID found.")
+    } else {
+    $("#scanMatchConfirm").addClass("text-success")
+    $("#scanMatchConfirm").text("ID found. See client info below.")
+    processID();
+    }
   }
   function onScanFailure(error) {
     // handle scan failure, usually better to ignore and keep scanning
@@ -119,11 +150,72 @@ $("#searchMemberID").click(function() {
       $("#ManualNameConfirm").text(clientList[membersIDs.indexOf(Number(verifyID))].Name)
       $("#ManualDoBConfirm").css("display","block")
       $("#ManualDoBConfirm").text(clientList[membersIDs.indexOf(Number(verifyID))].DoB)
-  
     }
   }
 });
 
+$("#manualFinalConfirm").click(function() {
+  console.log("This click is working fine")
+  $("#ManualDoBConfirm").css("display", "none");
+  $("#ManualNameConfirm").css("display", "none");
+  $("#seeBelow").css("display", "block");
+  $("#IDmatchManualConfirm").css("display", "none");
+  $("#seeBelow").text("Review client information below.")
+  processID();
+});
+
+function processID(){
+  console.log(verifyID);
+  clientLink = clientList[membersIDs.indexOf(Number(verifyID))]
+  $("#loadClientInfo").css("display", "block");
+  $("#subsValid").css("display", "block");
+  $("#hold-on").css("display", "none");
+  $("#come-in").css("display", "none");
+  clientInfoLoad();
+  if (clientLink.Subscription) {
+    $("#come-in").css("display", "block");
+    var checkInTime = Date .now();
+    checkedIn.push(clientLink.ID);
+    checkTimes.push(checkInTime);
+    console.log("This customer " + clientLink.Name + " was checked in"); 
+    console.log("The following memberships are checked in: " + checkedIn)
+    currentClientsIn()
+  } else {
+    $("#hold-on").css("display", "block");
+  }
 
 
+}
+function clientInfoLoad() {
+  $("#client-info-name").text(clientLink.Name);
+  $("#client-info-address").text(clientLink.Street + " " + clientLink["Street Number"] + " " + clientLink.City + ", " + clientLink.State + ", " + clientLink["ZIP Code"]);
+  $("#client-info-phone").text(clientLink.Phone);
+}
+
+function currentClientsIn() {
+  $("#someGuests").css("display", "block");
+  $("#noGuests").css("display", "none");    
+  $("#newRowCurrentClients").empty()
+
+  console.log(clientList[0])
+  for (var i=0; i<checkedIn.length; i++) {
+    var clientsCheckedInInfo = clientList[membersIDs.indexOf(Number(checkedIn[i]))]
+    console.log(clientsCheckedInInfo)
+    var newRow = $("#newRowCurrentClients")
+    var makeTR = $("<tr>").css("id", "attachCLientInfo");
+    var makeTH = $("<th>").text(clientsCheckedInInfo.Name);
+    var makeTD1 = $("<td>").text(new Date(Number(checkTimes[i])).toLocaleTimeString());
+    var passedTimeRaw = (Math.floor(((Date .now())-checkTimes[i])/1000));
+    var passedHours = Math.floor(passedTimeRaw/(60*60)); 
+    var passedMins = Math.floor((passedTimeRaw-(passedHours*60*60))/60);
+    var passedSecs = Math.floor(passedTimeRaw-(passedHours*60*60)-(passedMins*60));
+    var makeTD2 = $("<td>").text(passedHours + " Hours " + passedMins + " Mins " + passedSecs + " Secs ");
+    var makeTD3 = $("<td>").html("<html>&#x274C</html>");
+    makeTR.append(makeTH)
+    makeTR.append(makeTD1)
+    makeTR.append(makeTD2)
+    makeTR.append(makeTD3)
+    newRow.append(makeTR)
+  }
+}
 
