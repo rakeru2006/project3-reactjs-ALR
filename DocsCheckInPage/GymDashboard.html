@@ -65,13 +65,15 @@
 
                           <div class="input-group input-group-sm mb-3">
                             <input id="searchValue" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                            <button class="btn btn-outline-secondary" type="button" id="searchMemberID">Search</button>                            
+                            <button class="btn btn-outline-secondary" type="button" id="searchMemberID">Search</button>  
+                          </div>                          
                             <div id="memberIDSearchResult" style="display: none;">
-                                <p>this element will only load after searching a membership ID (will load and name and DOB)</p>
+                                <p id="IDmatchManualConfirm">this element will only load after searching a membership ID . if erorr, wil match that error.</p>
+                                <p id="ManualNameConfirm" style="display: none;">(will load and name and DOB to confirm)</p>
+                                <p id="ManualDoBConfirm" style="display: none;">(will load and name and DOB to confirm)</p>
                                 <button class="btn btn-outline-secondary" type="button" id="button-addon2">Confirm Identity</button>                          </div>
                             </div>
                           <p class="card-text"></p>
-                        </div>
                     </div>
                     <div id="clientSearchBox" class="card" style= "display: none;width: 20rem;">
                         <div class="card-body">
