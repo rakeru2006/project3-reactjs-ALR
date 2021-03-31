@@ -52,14 +52,14 @@
                           <p><a id=clientSearch href="#" class="card-link">Search Client Membership</a></p>
                         </div>
                     </div>
-                    <div id="scanQRBox" class="card col-6" style= "display: none;width: 20rem;">
+                    <div id="scanQRBox" class="card col" style= "display: none;width: 20rem;">
                         <div class="card-body">
                           <div id="reader" width="600px"></div>
                           <div id="scanMatchConfirm"></div>
 
                         </div>
                     </div>
-                    <div id="manualInputBox" class="card" style= "display: none;width: 20rem;">
+                    <div id="manualInputBox" class="card col" style= "display: none;">
                         <div class="card-body">
                           <h5 class="card-title">Enter Client Member ID</h5>
                           <h6 class="card-subtitle mb-2 text-muted">Verify the customer name and DOB after inputting membership ID</h6>
@@ -78,7 +78,7 @@
                         </div>
                         <p class="card-text"></p>
                     </div>
-                    <div id="clientSearchBox" class="card" style= "display: none;width: 20rem;">
+                    <div id="clientSearchBox" class="card col" style= "display: none">
                         <div class="card-body">
                             <div style= "display: block;">
                                 <h5 class="card-title">Search for Client </h5>
@@ -106,8 +106,8 @@
                     </div>    
                 </div>
                 <div class= "row">
-                    <div id="subsValid" style="display: none;" class="card col-6" style="display: block; width: 20rem;">
-                        <div class="card-body">
+                    <div id="subsValid" style="display: none;" class="card col" style="display: block;">
+                        <div class="row card-body">
                             <h5 class="card-title">Subcription Validation</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Confirm Customer Subscription</h6>
                             <div id="come-in" style="display: none;">
@@ -130,10 +130,13 @@
                                     </div>
                                 </div>
                             </div>
-
+                        </div>
+                        <hr>
+                        <div class="row card-body">
+                            <button id="resetAllCheckIn" type="button" class="btn btn-danger">Close All Check-In Boxes</button>
                         </div>
                     </div>
-                    <div id="loadClientInfo" class="card" style="display:none; width: 20rem;">
+                    <div id="loadClientInfo" class="card col" style="display:none;">
                         <div class="card-body">
                           <h5 class="card-title">Client Information</h5>
                           <p class="card-text">Customer Name:</p>

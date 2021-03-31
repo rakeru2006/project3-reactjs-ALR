@@ -272,3 +272,16 @@ function currentClientsIn() {
   }
 }
 
+$("#resetAllCheckIn").click(function() {
+  $("#clientSearchBox").css("display", "none");
+  $("#manualInputBox").css("display", "none");
+  $("#scanQRBox").css("display","none");
+  $("#loadClientInfo").css("display", "none");
+  $("#subsValid").css("display", "none");
+  $("#hold-on").css("display", "none");
+  $("#come-in").css("display", "none");
+
+
+
+})
+
