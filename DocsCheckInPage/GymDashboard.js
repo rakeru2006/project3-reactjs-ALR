@@ -250,12 +250,11 @@ function currentClientsIn() {
   $("#someGuests").css("display", "block");
   $("#noGuests").css("display", "none");    
   $("#newRowCurrentClients").empty()
-  console.log(clientList[0])
   for (var i=0; i<checkedIn.length; i++) {
     var clientsCheckedInInfo = clientList[membersIDs.indexOf(Number(checkedIn[i]))]
     console.log(clientsCheckedInInfo)
-    var newRow = $("#newRowCurrentClients")
-    var makeTR = $("<tr>").css("id", "attachCLientInfo");
+    var newRow = $("#newRowCurrentClients").addClass("align-middle")
+    var makeTR = $("<tr>");
     var makeTH = $("<th>").text(clientsCheckedInInfo.Name);
     var makeTD1 = $("<td>").text(new Date(Number(checkTimes[i])).toLocaleTimeString());
     var passedTimeRaw = (Math.floor(((Date .now())-checkTimes[i])/1000));
@@ -263,11 +262,15 @@ function currentClientsIn() {
     var passedMins = Math.floor((passedTimeRaw-(passedHours*60*60))/60);
     var passedSecs = Math.floor(passedTimeRaw-(passedHours*60*60)-(passedMins*60));
     var makeTD2 = $("<td>").text(passedHours + " Hours " + passedMins + " Mins " + passedSecs + " Secs ");
-    var makeTD3 = $("<td>").html("<html>&#x274C</html>");
+    var makeButton = $("<button>").attr("type", "button").addClass("btn btn-link").attr("id", "checkout"+clientsCheckedInInfo.ID)
+    var makeI = $("<i>").addClass("text-danger bi-x-octagon-fill");
+    var makeTD3 = $("<td>").css("text-align", "center")
     makeTR.append(makeTH)
     makeTR.append(makeTD1)
     makeTR.append(makeTD2)
     makeTR.append(makeTD3)
+    makeTD3.append(makeButton)
+    makeButton.append(makeI)
     newRow.append(makeTR)
   }
 }
@@ -280,8 +283,9 @@ $("#resetAllCheckIn").click(function() {
   $("#subsValid").css("display", "none");
   $("#hold-on").css("display", "none");
   $("#come-in").css("display", "none");
+});
 
-
-
+$(".checkoutClient").click(function() {
+  console.log("you clicked on a button that will one day checkout a client")
 })
 
