@@ -2,6 +2,8 @@
 var clientList = [
   {
     ID: 2145380930,
+    FirstName: "Arturo",
+    LastName: "Rodriguez",
     Name: "Arturo Rodriguez",
     DoB: "12/15/1988",
     Street: "Marsalis",
@@ -13,6 +15,8 @@ var clientList = [
     Subscription: true
   }, {
     ID: 5620231112,
+    FirstName: "Arturo",
+    LastName: "Rodriguez",
     Name: "Arturo Rodriguez",
     DoB: "12/15/1988",
     Street: "Maestro Antonio Caso",
@@ -24,6 +28,8 @@ var clientList = [
     Subscription: false
   }, {
     ID: 8333463863,
+    FirstName: "Victor",
+    LastName: "Lepe",
     Name: "Victor Lepe",
     DoB: "5/3/1999",
     Street: "Maestro Antonio Caso",
@@ -43,7 +49,28 @@ membersIDs = []
 for (var i=0; i< clientList.length; i++) {
   membersIDs.push(clientList[i].ID)
 }
-console.log(membersIDs)
+
+fNames = []
+for (var i=0; i< clientList.length; i++) {
+  fNames.push(clientList[i].FirstName)
+}
+console.log(fNames)
+
+
+lNames = []
+for (var i=0; i< clientList.length; i++) {
+  lNames.push(clientList[i].LastName)
+}
+console.log(lNames)
+
+
+doBList = []
+for (var i=0; i< clientList.length; i++) {
+  doBList.push(clientList[i].DoB)
+}
+console.log(doBList)
+
+
 
 var verifyID;
 var checkedIn= [];
@@ -109,15 +136,31 @@ $("#clientSearch").click(function() {
   $("#clientSearchBox").css("display", "block");
   $("#manualInputBox").css("display", "none");
   $("#scanQRBox").css("display","none");
-  //html5QrcodeScanner.clear();
 });
+$("#manualCustomerSearch").click(function(){
+  searchFName = $("#manualSearchFirstName").val();
+  searchLName = $("#manualSearchLastName").val();
+  searchDoB = $("#manualSearchDoB").val();
+  if((fNames.indexOf(searchFName) >= 0) &&(fNames.indexOf(searchFName) === lNames.indexOf(searchLName)) && (fNames.indexOf(searchFName) === doBList.indexOf(searchDoB))) {
+    console.log("there is a match somewhere");
+    var clientIndex = fNames.indexOf(searchFName);
+    verifyID = clientList[clientIndex].ID
+    console.log(verifyID);
+    $("#clientLookUpResult").css("display", "block").removeClass("text-danger").addClass("text-success").text("Confirm Address: " + clientList[clientIndex].Street + " " + clientList[clientIndex]["Street Number"] + " " + clientList[clientIndex].City + ", " + clientList[clientIndex].State + ", " + clientList[clientIndex]["ZIP Code"]);
+    $("#confirmCustomerSearch").css("display", "block")
+  } else {
+    $("#clientLookUpResult").css("display", "block").addClass("text-danger").text("No match, go into client database to find more information.")
+    console.log("no match")
+  }
+})
+$("#confirmCustomerSearch").click(function(){
+  processID();
+})
 
 $("#searchMemberID").click(function() {
   $("#IDFoundConfirm").css("display","none")
   $("#ManualNameConfirm").css("display","none")
   $("#ManualDoBConfirm").css("display","none")
-
-
   verifyID = $("#searchValue").val();
   console.log(verifyID)
   if(isNaN(verifyID)){
@@ -196,7 +239,6 @@ function currentClientsIn() {
   $("#someGuests").css("display", "block");
   $("#noGuests").css("display", "none");    
   $("#newRowCurrentClients").empty()
-
   console.log(clientList[0])
   for (var i=0; i<checkedIn.length; i++) {
     var clientsCheckedInInfo = clientList[membersIDs.indexOf(Number(checkedIn[i]))]

@@ -86,22 +86,21 @@
                                 <p class="card-text"></p>
                                 <div class="input-group input-group-sm mb-3">
                                     <span class="input-group-text" id="inputGroup-sizing-sm">First Name</span>
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                    <input id="manualSearchFirstName" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
                                 </div>
                                 <div class="input-group input-group-sm mb-3">
                                     <span class="input-group-text" id="inputGroup-sizing-sm">Last Name</span>
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                    <input id="manualSearchLastName" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
                                 </div>
                                 <div class="input-group input-group-sm mb-3">
                                     <span class="input-group-text" id="inputGroup-sizing-sm">DoB</span>
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                    <input id="manualSearchDoB" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
                                 </div>
-                                <button class="input-group-sm btn btn-outline-secondary " type="button" id="button-addon2">Search</button>                            
+                                <button class="input-group-sm btn btn-outline-secondary mb-3" type="button" id="manualCustomerSearch">Search</button>                            
                             </div>
-                            <div style="display: show;">
-                                <p>this section will be hidden until there is a search it will load results.</p>
-                                <p>Confirm Address: </p>
-                                <p>If no match, go into customer database to find customer.</p>
+                            <div>
+                                <p style="display:none" id="clientLookUpResult">this section will be hidden until there is a search it will load results.</p>
+                                <button class="input-group-sm btn btn-outline-secondary mb-3" style="display: none;" type="button" id="confirmCustomerSearch">Confirm Check-In</button>                            
                             </div>
                         </div>
                     </div>    
