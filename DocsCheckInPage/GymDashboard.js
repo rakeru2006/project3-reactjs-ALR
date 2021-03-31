@@ -101,10 +101,9 @@ $("#scanQR").click(function() {
       $("#scanMatchConfirm").addClass("text-danger")
       $("#scanMatchConfirm").text("No matching ID found.")
     } else {
-    $("#scanMatchConfirm").addClass("text-success")
-    $("#scanMatchConfirm").text("ID found. See client info below.")
-    processID();
-    }
+    $("#scanMatchConfirm").addClass("text-success").text("ID found. See client info below.")
+    priorCheckIn();
+  }
   }
   function onScanFailure(error) {
     // handle scan failure, usually better to ignore and keep scanning
@@ -154,7 +153,7 @@ $("#manualCustomerSearch").click(function(){
   }
 })
 $("#confirmCustomerSearch").click(function(){
-  processID();
+  priorCheckIn();
 })
 
 $("#searchMemberID").click(function() {
@@ -204,11 +203,24 @@ $("#manualFinalConfirm").click(function() {
   $("#seeBelow").css("display", "block");
   $("#IDmatchManualConfirm").css("display", "none");
   $("#seeBelow").text("Review client information below.")
-  processID();
+  priorCheckIn()
 });
 
-function processID(){
+function priorCheckIn() {
   console.log(verifyID);
+  console.log(checkedIn)
+  console.log(checkedIn.indexOf(Number(verifyID)));
+  if (checkedIn.indexOf(Number(verifyID)) >= 0) {
+    $("#seeBelow").text("This member is already checked in!").addClass("text-warning h4").removeClass("text-success text-danger")
+    $("#clientLookUpResult").text("This member is already checked in!").addClass("text-warning h4").removeClass("text-success text-danger")
+    $("#scanMatchConfirm").text("This member is already checked in!").addClass("text-warning h4").removeClass("text-success text-danger")
+    console.log("This member is already checked in!")
+    return;
+  } else {
+    processID();
+  }
+}
+function processID(){ 
   clientLink = clientList[membersIDs.indexOf(Number(verifyID))]
   $("#loadClientInfo").css("display", "block");
   $("#subsValid").css("display", "block");
@@ -226,9 +238,8 @@ function processID(){
   } else {
     $("#hold-on").css("display", "block");
   }
-
-
 }
+
 function clientInfoLoad() {
   $("#client-info-name").text(clientLink.Name);
   $("#client-info-address").text(clientLink.Street + " " + clientLink["Street Number"] + " " + clientLink.City + ", " + clientLink.State + ", " + clientLink["ZIP Code"]);
