@@ -52,14 +52,14 @@ for (var i=0; i< clientList.length; i++) {
 
 fNames = []
 for (var i=0; i< clientList.length; i++) {
-  fNames.push(clientList[i].FirstName)
+  fNames.push((clientList[i].FirstName).toLowerCase())
 }
 console.log(fNames)
 
 
 lNames = []
 for (var i=0; i< clientList.length; i++) {
-  lNames.push(clientList[i].LastName)
+  lNames.push((clientList[i].LastName).toLowerCase());
 }
 console.log(lNames)
 
@@ -137,8 +137,8 @@ $("#clientSearch").click(function() {
   $("#scanQRBox").css("display","none");
 });
 $("#manualCustomerSearch").click(function(){
-  searchFName = $("#manualSearchFirstName").val();
-  searchLName = $("#manualSearchLastName").val();
+  searchFName = ($("#manualSearchFirstName").val()).toLowerCase();
+  searchLName = ($("#manualSearchLastName").val()).toLowerCase();
   searchDoB = $("#manualSearchDoB").val();
   if((fNames.indexOf(searchFName) >= 0) &&(fNames.indexOf(searchFName) === lNames.indexOf(searchLName)) && (fNames.indexOf(searchFName) === doBList.indexOf(searchDoB))) {
     console.log("there is a match somewhere");
