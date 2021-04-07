@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import NavBar from '../components/NavBar';
-import List_soc from "../containers/list_soc";
+import Agr_soc from "../containers/agrega_socio";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function l_soc() {
   return (
     <Router>
         <NavBar />
-        <List_soc />
+        <Agr_soc />
     </Router>
   );
 }

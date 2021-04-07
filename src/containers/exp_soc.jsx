@@ -1,59 +1,14 @@
 import React, { Component } from "react";
-import List from "../components/List";
-import axios from "axios";
+
 
 class exp_soc extends Component {
-  state = {
-    employees: [],
-    employeesToDisplay: [],
-    searchTerm: "",
-  };
+  state = { users: [] }
 
   componentDidMount() {
-    this.getEmployees();
+    fetch('https://gymevolucion.herokuapp.com/users')
+      .then(res => res.json())
+      .then(users => this.setState({ users }));
   }
-
-  clearFilter = () => {
-    this.setState({
-      employeesToDisplay: this.state.employees,
-      searchTerm: "",
-    });
-  };
-
-  getEmployees = () => {
-    axios
-      .get("http://dummy.restapiexample.com/api/v1/employees")
-      .then((response) => {
-        this.setState({
-          employees: response.data.data,
-          employeesToDisplay: response.data.data,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  handleChange = (event) => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value,
-    });
-  };
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-    const employees = [...this.state.employees];
-    const filteredEmployees = employees.filter((employee) => {
-      const regex = new RegExp(this.state.searchTerm, "gi");
-      return employee.employee_name.match(regex);
-    });
-
-    this.setState({
-      employeesToDisplay: filteredEmployees,
-    });
-  };
-
   render() {
     return (
       <>
@@ -83,54 +38,52 @@ class exp_soc extends Component {
                     </tr>
                   </thead>
                   <tbody>
-
+                    {this.state.users.map( user =>
                       <tr>
                         <td bgcolor="#D8D8D8">
-                           cliente.0 
+                        {user.id}
                         </td>
                         <td bgcolor="#D8D8D8">
-                           cliente.1 
+                        {user.name_c}
                         </td>
                         <td bgcolor="#D8D8D8">
-                           cliente.2 
+                           {user.tel} 
                         </td>
                         <td bgcolor="#D8D8D8">
-                           cliente.3 
+                           {user.email}
                         </td>
                         <td bgcolor="#D8D8D8">
-                           cliente.4 
+                           {user.dir}
                         </td>
                         <td bgcolor="#D8D8D8">
-                           cliente.5 
+                           {user.col}
                         </td>
                         <td bgcolor="#D8D8D8">
-                           cliente.6 
+                           {user.city}
                         </td>
                         <td bgcolor="#D8D8D8">
-                           cliente.7 
+                           {user.state}
                         </td>
                         <td bgcolor="#D8D8D8">
-                           cliente.8 
+                           {user.cp}
                         </td>
                         <td bgcolor="#D8D8D8">
-                           cliente.9 
+                           {user.md}
                         </td>
                         <td bgcolor="#D8D8D8">
-                           cliente.10 
+                           {user.lp}
                         </td>
                         <td bgcolor="#D8D8D8">
-                           cliente.11 
+                           {user.np}
                         </td>
                         <td bgcolor="#D8D8D8">
-                           cliente.12 
+                           {user.per}
                         </td>
                         <td bgcolor="#D8D8D8">
-                           cliente.13 
-                        </td>
-
+                           {user.stat}
+                        </td>  
                       </tr>
-
-                    
+                    )}  
                   </tbody>
                 </table>
               </td>

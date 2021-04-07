@@ -1,63 +1,19 @@
 import React, { Component } from "react";
-import List from "../components/List";
-import axios from "axios";
+
 
 class exp_pag extends Component {
-  state = {
-    employees: [],
-    employeesToDisplay: [],
-    searchTerm: "",
-  };
+  state = { pagos: [] }
 
   componentDidMount() {
-    this.getEmployees();
+    fetch('https://gymevolucion.herokuapp.com/pagos')
+      .then(res => res.json())
+      .then(pagos => this.setState({ pagos }));
   }
 
-  clearFilter = () => {
-    this.setState({
-      employeesToDisplay: this.state.employees,
-      searchTerm: "",
-    });
-  };
-
-  getEmployees = () => {
-    axios
-      .get("http://dummy.restapiexample.com/api/v1/employees")
-      .then((response) => {
-        this.setState({
-          employees: response.data.data,
-          employeesToDisplay: response.data.data,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  handleChange = (event) => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value,
-    });
-  };
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-    const employees = [...this.state.employees];
-    const filteredEmployees = employees.filter((employee) => {
-      const regex = new RegExp(this.state.searchTerm, "gi");
-      return employee.employee_name.match(regex);
-    });
-
-    this.setState({
-      employeesToDisplay: filteredEmployees,
-    });
-  };
 
   render() {
     return (
       <>
-
         <table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
           <tbody>
             <tr>
@@ -76,31 +32,31 @@ class exp_pag extends Component {
                     </tr>
                   </thead>
                   <tbody>
-
+                    {this.state.pagos.map( pago =>
                       <tr>
                         <td bgcolor="#D8D8D8">
-                           pago.0 
+                          {pago.id_pago}
                         </td>
                         <td bgcolor="#D8D8D8">
-                           pago.1 
+                          {pago.id_socio} 
                         </td>
                         <td bgcolor="#D8D8D8">
-                           pago.2 
+                          {pago.nom_socio} 
                         </td>
                         <td bgcolor="#D8D8D8">
-                           pago.3 
+                          {pago.f_pagar}
                         </td>
                         <td bgcolor="#D8D8D8">
-                           pago.4 
+                          {pago.f_pago}
                         </td>
                         <td bgcolor="#D8D8D8">
-                           pago.5 
+                          {pago.f_sigp}
                         </td>
                         <td bgcolor="#D8D8D8">
-                           pago.6 
+                          {pago.monto}
                         </td>
                       </tr>
-
+                    )}
                   </tbody>
                 </table>
               </td>
