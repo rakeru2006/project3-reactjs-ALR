@@ -57,7 +57,7 @@ const getLocalTodos = () => {
   return (
     <div className="App">
       <header className="App">
-        <h1>Sai's Todo list </h1>
+        <h1>GYM Todo list </h1>
       </header>
       <Form 
       inputText={inputText}

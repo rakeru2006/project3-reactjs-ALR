@@ -59,7 +59,7 @@ function Books() {
         <Row>
           <Col size="md-6">
             <Jumbotron>
-              <h1>What Books Should I Read?</h1>
+              <h1>What Training Should I Do?</h1>
             </Jumbotron>
             <form>
               <Input
@@ -81,13 +81,13 @@ function Books() {
                 disabled={!(formObject.author && formObject.title)}
                 onClick={handleFormSubmit}
               >
-                Submit Book
+                Submit training
               </FormBtn>
             </form>
           </Col>
           <Col size="md-6 sm-12">
             <Jumbotron>
-              <h1>Books On My List</h1>
+              <h1>Training On My List</h1>
             </Jumbotron>
             {books.length ? (
               <List>
